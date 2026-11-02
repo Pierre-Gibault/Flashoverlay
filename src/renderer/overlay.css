@@ -1,0 +1,195 @@
+:root {
+  --surface-primary: #0c1015;
+  --surface-elevated: #1b2430;
+  --border-default: #2a3644;
+  --accent-primary: #f2b84b;
+  --flash-white: #ffffff;
+  background: transparent;
+}
+
+html,
+body,
+.scene,
+.flash {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+html,
+body,
+.scene {
+  min-height: 100vh;
+}
+
+body {
+  overflow: hidden;
+  background: transparent;
+}
+
+.scene {
+  --flash-intensity: 1;
+  --motion-intensity: 1;
+  --grenade-travel-duration: 2200ms;
+  --flash-delay: 2200ms;
+  --flash-fade-duration: 3600ms;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.grenade {
+  position: absolute;
+  bottom: 7vh;
+  left: 7vw;
+  width: 96px;
+  height: 112px;
+  opacity: 0;
+  transform: translate3d(0, -96px, 0) rotate(-24deg);
+  will-change: transform, opacity;
+}
+
+.grenade-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 10px 14px rgb(0 0 0 / 45%));
+}
+
+.grenade-art__body {
+  stroke: #081018;
+  stroke-width: 4;
+}
+
+.grenade-art__lever,
+.grenade-art__pin {
+  fill: none;
+  stroke: var(--accent-primary);
+  stroke-linecap: round;
+  stroke-width: 6;
+}
+
+.grenade-art__pin-ring {
+  fill: none;
+  stroke: #f6f7f8;
+  stroke-width: 4;
+}
+
+.grenade-art__neck {
+  fill: #263744;
+  stroke: #081018;
+  stroke-width: 4;
+}
+
+.grenade-art__highlight {
+  fill: none;
+  stroke: rgb(255 255 255 / 28%);
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.grenade-art__stripe {
+  fill: none;
+  stroke: rgb(255 255 255 / 14%);
+  stroke-width: 3;
+}
+
+.flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: var(--flash-white);
+  will-change: opacity;
+}
+
+.scene--active .grenade {
+  animation: grenade-flight var(--grenade-travel-duration) cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.scene--active .flash {
+  animation: flash-fade var(--flash-fade-duration) ease-out var(--flash-delay) forwards;
+}
+
+.scene--flash-only .grenade {
+  display: none;
+}
+
+@keyframes grenade-flight {
+  0% {
+    opacity: 0;
+    transform: translate3d(-12vw, -24vh, 0) rotate(-42deg) scale(0.82);
+  }
+
+  9% {
+    opacity: 1;
+    transform: translate3d(-8vw, -34vh, 0) rotate(25deg) scale(1);
+  }
+
+  26% {
+    opacity: 1;
+    transform: translate3d(7vw, -49vh, 0) rotate(180deg) scale(1.02);
+  }
+
+  43% {
+    opacity: 1;
+    transform: translate3d(25vw, 1vh, 0) rotate(335deg) scale(0.98);
+  }
+
+  56% {
+    opacity: 1;
+    transform: translate3d(36vw, -19vh, 0) rotate(445deg) scale(0.92);
+  }
+
+  66% {
+    opacity: 1;
+    transform: translate3d(45vw, 1vh, 0) rotate(530deg) scale(0.84);
+  }
+
+  76% {
+    opacity: 1;
+    transform: translate3d(53vw, -10vh, 0) rotate(600deg) scale(0.76);
+  }
+
+  84% {
+    opacity: 1;
+    transform: translate3d(60vw, 1vh, 0) rotate(655deg) scale(0.7);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(66vw, 3vh, 0) rotate(700deg) scale(0.62);
+  }
+}
+
+@keyframes flash-fade {
+  0% {
+    opacity: calc(var(--flash-intensity) * var(--motion-intensity));
+  }
+
+  18% {
+    opacity: calc(var(--flash-intensity) * var(--motion-intensity));
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene {
+    --motion-intensity: 0.55;
+  }
+
+  .scene--active .grenade {
+    animation: none;
+  }
+
+  .scene--active .flash {
+    animation-delay: 0ms;
+    animation-duration: 6000ms;
+  }
+}

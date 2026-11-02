@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-electron/
+coverage/
+*.tsbuildinfo
+
+# Local runtime output
+*.log
+.env
+.env.*
+!.env.example
+
+# Tooling artifacts
+.playwright-mcp/
+artifacts/
+.omo/evidence/

@@ -1,0 +1,29 @@
+{
+  "name": "flashoverlay",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist-electron/main/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite --host 127.0.0.1\" \"npm:dev:main\" \"npm:dev:electron\"",
+    "dev:main": "tsc -p tsconfig.electron.json --watch",
+    "dev:electron": "wait-on http://127.0.0.1:5173 file:dist-electron/main/main.js && cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron --no-sandbox --disable-gpu --ozone-platform=x11 .",
+    "build": "npm run build:main && vite build",
+    "build:main": "tsc -p tsconfig.electron.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.electron.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^39.2.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.2",
+    "vitest": "^4.0.8",
+    "wait-on": "^9.0.3"
+  }
+}

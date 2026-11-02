@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'none'"
+    />
+    <title>Flashbang overlay scene</title>
+  </head>
+  <body>
+      <div id="scene" class="scene" aria-hidden="true">
+        <div class="grenade" aria-hidden="true">
+        <svg class="grenade-art" viewBox="0 0 120 140" role="img" aria-label="Flash grenade">
+          <defs>
+            <linearGradient id="grenade-body-gradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#3c4b58" />
+              <stop offset="0.55" stop-color="#1b2630" />
+              <stop offset="1" stop-color="#0d141b" />
+            </linearGradient>
+            <linearGradient id="grenade-band-gradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#d99027" />
+              <stop offset="0.5" stop-color="#ffd36b" />
+              <stop offset="1" stop-color="#b66d18" />
+            </linearGradient>
+          </defs>
+          <path class="grenade-art__lever" d="M73 31c18-19 35-11 36 2-8 4-16 9-24 19" />
+          <path class="grenade-art__pin" d="M73 37c-5-8-14-11-20-5l-8 9" />
+          <circle class="grenade-art__pin-ring" cx="43" cy="42" r="7" />
+          <path class="grenade-art__neck" d="M45 45h36l-4 16H49z" />
+          <rect class="grenade-art__body" x="25" y="55" width="70" height="74" rx="28" fill="url(#grenade-body-gradient)" />
+          <path class="grenade-art__band" d="M28 79h64v16H28z" fill="url(#grenade-band-gradient)" />
+          <path class="grenade-art__highlight" d="M43 64c-7 10-9 39 0 56" />
+          <path class="grenade-art__stripe" d="M55 62v60M68 62v60M81 62v60" />
+        </svg>
+        </div>
+        <div class="flash"></div>
+    </div>
+    <script type="module" src="/src/renderer/overlay.ts"></script>
+  </body>
+</html>

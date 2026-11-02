@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'"
+    />
+    <title>Flashbang Overlay</title>
+  </head>
+  <body>
+    <main class="control-shell" aria-labelledby="app-title">
+      <header class="header">
+        <p class="eyebrow">Desktop interruption trainer</p>
+        <h1 id="app-title">Flashbang Overlay</h1>
+        <p class="lede">A native, click-through signal over your active desktop.</p>
+      </header>
+
+      <section class="status-strip" aria-label="Overlay session status">
+        <span class="status-dot" aria-hidden="true"></span>
+        <div>
+          <p class="status-label">Session</p>
+          <p id="status-message" class="status-message" aria-live="polite">Idle. Configure a cadence, then start.</p>
+        </div>
+      </section>
+
+      <form id="settings-form" class="settings-card" novalidate>
+        <div class="card-heading">
+          <div>
+            <h2>Signal settings</h2>
+            <p>Intervals are randomly selected within the range.</p>
+          </div>
+          <output id="intensity-output" for="intensity">100%</output>
+        </div>
+        <div class="settings-grid">
+          <label class="field" for="min-interval">
+            <span>Minimum interval</span>
+            <span class="input-unit"><input id="min-interval" name="minInterval" type="number" min="10" max="3600" step="1" value="45" required /><small>seconds</small></span>
+          </label>
+          <label class="field" for="max-interval">
+            <span>Maximum interval</span>
+            <span class="input-unit"><input id="max-interval" name="maxInterval" type="number" min="10" max="3600" step="1" value="120" required /><small>seconds</small></span>
+          </label>
+          <label class="field intensity-field" for="intensity">
+            <span>Flash intensity</span>
+            <input id="intensity" name="intensity" type="range" min="0.2" max="1" step="0.05" value="1" />
+          </label>
+        </div>
+        <p id="settings-error" class="settings-error" aria-live="polite"></p>
+        <button class="button button-secondary" type="submit">Apply settings</button>
+      </form>
+
+      <section class="actions" aria-label="Session controls">
+        <button id="start-button" class="button button-primary" type="button">Start scheduler</button>
+        <button id="pause-button" class="button button-secondary" type="button">Pause</button>
+        <button id="resume-button" class="button button-secondary" type="button">Resume</button>
+        <button id="trigger-button" class="button button-danger" type="button">Trigger flash now</button>
+      </section>
+
+      <footer>
+        <p>Keep this app running while the overlay is in use. The overlay does not run after the app exits.</p>
+      </footer>
+    </main>
+    <script type="module" src="/src/renderer/control.ts"></script>
+  </body>
+</html>
