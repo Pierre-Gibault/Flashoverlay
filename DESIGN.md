@@ -80,11 +80,11 @@ All spacing derives from a 4px base unit.
 - **Layout**: centered single-column shell.
 
 ### Native Flash Overlay
-- **Structure**: transparent fullscreen window containing grenade scene and flash layer.
+- **Structure**: transient transparent native window per current display containing grenade scene and flash layer. No native overlay exists while idle.
 - **Variants**: grenade-flight, whiteout, fade-back.
 - **Spacing**: viewport-relative positioning; no content interaction.
-- **States**: hidden, visible, reduced-motion.
-- **Accessibility**: click-through and excluded from keyboard navigation; control window announces events.
+- **States**: idle without an overlay window, loading hidden, visible, reduced-motion.
+- **Accessibility**: visible overlays are click-through and excluded from keyboard navigation; control window announces events.
 - **Motion**: transform-only bounce followed by opacity fade.
 - **Layout**: viewport overlay owned by the native window.
 
@@ -96,6 +96,12 @@ All spacing derives from a 4px base unit.
 - **Accessibility**: visible focus ring and descriptive label.
 - **Motion**: 100ms press transform.
 - **Layout**: cluster within action row.
+
+### Shared Room Card
+- **Structure**: server URL, room code, role signal, connection status, and connect controls.
+- **Variants**: local, connecting, leader, follower, reconnecting.
+- **States**: follower disables scheduling and manual trigger actions; disconnected preserves local controls.
+- **Accessibility**: live connection status and native labeled fields.
 
 ## 6. Motion & Interaction
 ### Timing
@@ -110,6 +116,8 @@ All spacing derives from a 4px base unit.
 - Animate only transform and opacity.
 - Random scheduling uses recursive timeouts so pause and stop are deterministic.
 - Reduced motion skips grenade travel but preserves a lower-intensity whiteout cue on every display for the full session lifecycle.
+- A flash snapshots each display's global Electron bounds without work-area or scale-factor conversion, creates one hidden overlay per display, and removes it after the six-second sequence.
+- Windows request skip-taskbar, non-focusable, click-through behavior while visible. Ubuntu and Kubuntu X11 are supported; native Kubuntu Wayland positioning and stacking remain best effort, with Xwayland recommended when strict behavior is required.
 
 ## 7. Depth & Surface
 ### Strategy

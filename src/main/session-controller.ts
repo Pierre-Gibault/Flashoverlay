@@ -12,11 +12,12 @@ export class SessionController {
   public constructor(
     private readonly overlay: OverlayWindow,
     private readonly publishState: (state: SessionState) => void,
+    private readonly requestFlash: (settings: AppSettings) => void,
   ) {
     this.scheduler = new RandomScheduler({
       timers: { setTimeout, clearTimeout },
       randomUnit: Math.random,
-      onElapsed: () => this.triggerFlash(),
+      onElapsed: () => this.requestFlash(this.settings),
     })
   }
 
@@ -51,8 +52,12 @@ export class SessionController {
   }
 
   public trigger(): SessionState {
-    this.triggerFlash()
+    this.requestFlash(this.settings)
     return this.getState()
+  }
+
+  public renderFlash(settings: AppSettings): void {
+    this.triggerFlash(settings)
   }
 
   public dispose(): void {
@@ -62,9 +67,9 @@ export class SessionController {
     }
   }
 
-  private triggerFlash(): void {
+  private triggerFlash(settings: AppSettings): void {
     this.flashing = true
-    this.overlay.flash(this.settings)
+    this.overlay.flash(settings)
     this.publish()
 
     if (this.flashTimer !== null) {

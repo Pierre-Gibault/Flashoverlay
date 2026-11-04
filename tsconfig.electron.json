@@ -17,6 +17,6 @@
     "rootDir": "src",
     "types": ["node", "electron"]
   },
-  "include": ["src/main", "src/preload", "src/shared"],
+  "include": ["src/main", "src/preload", "src/server", "src/shared"],
   "exclude": ["node_modules", "dist", "dist-electron"]
 }

@@ -4,6 +4,7 @@ import { defineConfig } from "vite"
 const rootDirectory = fileURLToPath(new URL(".", import.meta.url))
 
 export default defineConfig({
+  base: "./",
   root: rootDirectory,
   build: {
     rollupOptions: {

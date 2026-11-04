@@ -51,11 +51,48 @@
         <button class="button button-secondary" type="submit">Apply settings</button>
       </form>
 
-      <section class="actions" aria-label="Session controls">
+       <section class="actions" aria-label="Session controls">
         <button id="start-button" class="button button-primary" type="button">Start scheduler</button>
         <button id="pause-button" class="button button-secondary" type="button">Pause</button>
         <button id="resume-button" class="button button-secondary" type="button">Resume</button>
         <button id="trigger-button" class="button button-danger" type="button">Trigger flash now</button>
+       </section>
+
+      <section class="settings-card room-card" aria-labelledby="room-title">
+        <div class="card-heading">
+          <div>
+            <h2 id="room-title">Shared room</h2>
+            <p>Everyone can flash selected room members. The leader controls scheduling.</p>
+          </div>
+          <p id="room-role" class="room-role" aria-live="polite">Local</p>
+        </div>
+        <form id="room-form" class="room-form">
+          <label class="field" for="server-url">
+            <span>Server URL</span>
+            <span class="input-unit"><input id="server-url" name="serverUrl" type="url" value="ws://127.0.0.1:7331" required /></span>
+          </label>
+          <label class="field" for="room-code">
+            <span>Room code</span>
+            <span class="input-unit"><input id="room-code" name="roomCode" type="text" maxlength="64" pattern="[A-Za-z0-9_-]+" value="training" required /></span>
+          </label>
+          <div class="room-actions">
+            <button id="connect-button" class="button button-primary" type="submit">Connect</button>
+            <button id="disconnect-button" class="button button-secondary" type="button">Disconnect</button>
+          </div>
+        </form>
+        <p id="room-status" class="room-status" aria-live="polite">Disconnected. Local mode is enabled.</p>
+        <div class="room-targeting">
+          <label class="field" for="flash-target">
+            <span>Flash recipient</span>
+            <select id="flash-target" class="room-target-select">
+              <option value="everyone">Everyone</option>
+            </select>
+          </label>
+          <div>
+            <p class="participant-heading">Room participants</p>
+            <ul id="participant-list" class="participant-list" aria-live="polite"></ul>
+          </div>
+        </div>
       </section>
 
       <footer>

@@ -10,7 +10,7 @@ export function createControlWindow(rendererUrl: string | undefined): BrowserWin
     show: false,
     title: "Flashbang Overlay",
     webPreferences: {
-      preload: fileURLToPath(new URL("../preload/control-preload.js", import.meta.url)),
+      preload: fileURLToPath(new URL("../preload/control-preload.mjs", import.meta.url)),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,

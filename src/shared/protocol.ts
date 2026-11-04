@@ -1,4 +1,5 @@
 import { z } from "zod"
+import type { RoomConnectRequest, RoomFlashTarget, RoomState } from "./room-protocol.js"
 
 export const IPC = {
   getState: "flashoverlay:get-state",
@@ -8,6 +9,11 @@ export const IPC = {
   trigger: "flashoverlay:trigger",
   updateSettings: "flashoverlay:update-settings",
   stateChanged: "flashoverlay:state-changed",
+  getRoomState: "flashoverlay:get-room-state",
+  connectRoom: "flashoverlay:connect-room",
+  disconnectRoom: "flashoverlay:disconnect-room",
+  selectRoomTarget: "flashoverlay:select-room-target",
+  roomStateChanged: "flashoverlay:room-state-changed",
   flash: "flashoverlay:flash",
 } as const
 
@@ -44,10 +50,8 @@ export type SessionState = {
   readonly settings: AppSettings
 }
 
-export type FlashEvent = {
-  readonly settings: AppSettings
-  readonly showGrenade: boolean
-}
+export const FlashEventSchema = z.object({ settings: AppSettingsSchema, showGrenade: z.boolean() })
+export type FlashEvent = Readonly<z.output<typeof FlashEventSchema>>
 
 export const SessionStateSchema = z.object({
   status: z.enum([SessionStatus.idle, SessionStatus.running, SessionStatus.paused, SessionStatus.flashing]),
@@ -61,7 +65,12 @@ export type FlashOverlayApi = {
   readonly resume: () => Promise<SessionState>
   readonly trigger: () => Promise<SessionState>
   readonly updateSettings: (settings: AppSettings) => Promise<SessionState>
+  readonly getRoomState: () => Promise<RoomState>
+  readonly connectRoom: (request: RoomConnectRequest) => Promise<RoomState>
+  readonly disconnectRoom: () => Promise<RoomState>
+  readonly selectRoomTarget: (target: RoomFlashTarget) => Promise<RoomState>
   readonly onStateChanged: (callback: (state: SessionState) => void) => () => void
+  readonly onRoomStateChanged: (callback: (state: RoomState) => void) => () => void
 }
 
 export type OverlayApi = {
