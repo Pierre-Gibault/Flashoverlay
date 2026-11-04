@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-electron/
+release/
+coverage/
+.git/
+.codegraph/
+.omo/
+.playwright-mcp/
+artifacts/
+*.log
+.env
+.env.*
+test-results/
+playwright-report/

@@ -1,0 +1,19 @@
+appId: com.flashoverlay.app
+productName: FlashOverlay
+asar: true
+directories:
+  output: release
+files:
+  - dist/**/*
+  - dist-electron/main/**/*
+  - dist-electron/preload/**/*
+  - dist-electron/shared/**/*
+win:
+  target:
+    - nsis
+    - portable
+linux:
+  maintainer: Pierre Gibault <pgi@atolcd.com>
+  target:
+    - AppImage
+    - deb

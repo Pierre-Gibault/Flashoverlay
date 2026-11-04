@@ -13,4 +13,6 @@ coverage/
 # Tooling artifacts
 .playwright-mcp/
 artifacts/
-.omo/evidence/
+.omo/*
+release/*
+.idea/*
